@@ -2,10 +2,7 @@
 
 ---
 
-[中文API文档说明](https://github.com/PT-FED/pt-heatmap-api-demo/blob/master/heatMapAPI-doc.cn.md)
-[日本のAPIドキュメント](https://github.com/PT-FED/pt-heatmap-api-demo/blob/master/heatMapAPI-doc.jp.md)
-
-### https://reportv3.ptengine.jp/API/v1/heatMap/get
+## https://reportv3.ptengine.jp/API/v1/heatMap/get
 
 * #### 返回值
 
@@ -87,7 +84,7 @@ token不对也会被拒绝请求。
     heatMapType = click || attention || analysis
 ```
 
-### 如何使用这个API
+## 如何使用这个API
 
 >建议在服务器端发起请求,这样会保证token的安全性。
 浏览器端只组合参数发送到你的服务器，如 选择哪个页面查看哪个时间段的数据、查看终端类型或者热图类型等等。并等请求完毕之后，让iframe去加载返回的url。
