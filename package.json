@@ -1,0 +1,28 @@
+{
+  "name": "pt-heatmap-api-demo",
+  "version": "1.0.0",
+  "description": "how to use heatmap api",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PT-FED/pt-heatmap-api-demo.git"
+  },
+  "keywords": [
+    "heatmap",
+    "heatmap-api",
+    "ptmind"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PT-FED/pt-heatmap-api-demo/issues"
+  },
+  "homepage": "https://github.com/PT-FED/pt-heatmap-api-demo#readme",
+  "dependencies": {
+    "koa": "^2.2.0",
+    "koa-send": "^3.3.0"
+  }
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>heatmap api demo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <style>
+            #myIframe{
+                width: 100%;
+                height: 1000px;
+                border: none;
+            }
+        </style>
+    </head>
+    <body>
+        <h3>Hello heatmap demo</h3>
+        <ul>
+            <li data-url="http://datatest11.ptmind.com/zhr/events.html">
+                http://datatest11.ptmind.com/zhr/events.html      
+            </li>
+            <li data-url="http://datatest11.ptmind.com/zhr/about.html">
+                http://datatest11.ptmind.com/zhr/about.html
+            </li>
+        </ul>
+        <iframe id="myIframe" src=""></iframe>
+        <script>
+            $('ul li').on('click', function(){
+                console.log(this);
+                $.get('/getHeatMap?url=' + $(this).attr("data-url")).then(function(data){
+                    if(typeof data === 'string'){
+                        try{
+                            data = JSON.parse(data);
+                        }catch(e){
+                            alert('load heatmap api fail.');
+                        }
+                    }
+                    if(data.status === 'success'){
+                        $('#myIframe').attr('src', 'http://localhost:3200' + data.content.url);
+                    }else{
+                        alert('load heatmap api fail.');
+                    }
+                })
+            });
+        </script>
+    </body>
+</html>
