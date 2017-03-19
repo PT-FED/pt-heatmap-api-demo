@@ -2,6 +2,9 @@
 
 ---
 
+[中文API文档说明](https://github.com/PT-FED/pt-heatmap-api-demo/blob/master/heatMapAPI-doc.cn.md)
+[日本のAPIドキュメント](https://github.com/PT-FED/pt-heatmap-api-demo/blob/master/heatMapAPI-doc.jp.md)
+
 ### https://reportv3.ptengine.jp/API/v1/heatMap/get
 
 * #### 返回值
