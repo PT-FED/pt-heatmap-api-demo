@@ -2,7 +2,31 @@
 
 ---
 
-## API: https://reportv3.ptengine.jp/API/v1/heatMap/get
+### 嵌入式热图简介
+
+嵌入式热图提供了一套接口供用户来使用热图服务。通过接口，用户可以不登录到产品内便可以使用热图。同时用户可以根据自己的需求来定制热图请求的方式及展示的页面。
+
+### API使用建议
+
+>建议在服务器端发起请求,这样会保证token的安全性。
+浏览器端只组合参数发送到你的服务器，如 选择哪个页面查看哪个时间段的数据、查看终端类型或者热图类型等等。并等请求完毕之后，让iframe去加载返回的url。
+
+在请求API之后，浏览器端使用`iframe`嵌入的方式去加载返回的`url`。
+
+建议操作步骤如下:
+
+1. 浏览器端选择好参数传递给服务器，在服务器端组合好token与参数，由你的服务器发送请求到https://reportv3.ptengine.jp/API/v1/heatMap/get
+
+2. ptengine做出响应之后，将结果返回到浏览器。
+
+3. 浏览器判断返回结果的成功与失败，并由你自己去决定怎么处理后续的提示。
+
+4. 如果返回结果`status===success`,那么就可以将`content.url`嵌入到`iframe.src`。在loading结束之后，你就会看到你想看的内容了。
+```
+    document.getElementById("myIframe").src = 'https://reportv3.ptengine.jp/API/v1/heatMap/533286fa53b98a46f8d0d02364d45aac/heatMapAPI.html'
+```
+
+### API: https://reportv3.ptengine.jp/API/v1/heatMap/get
 
 * #### method: GET
 
@@ -49,6 +73,7 @@ token不对也会被拒绝请求。
 * `PC`
 * `Smartphone`
 * `Tablet`
+
 不区分大小写。如果传递错误的参数会拒绝请求。
 这个参数影响`最终获取的数据`。如 `terminal=Smartphone`则只查询Smartphone下产生的数据
 
@@ -90,22 +115,10 @@ token不对也会被拒绝请求。
 ```
 当`status=fail`表示当前请求失败。具体原因可查看`content`.
 
-## 如何使用这个API
+### API验证
 
->建议在服务器端发起请求,这样会保证token的安全性。
-浏览器端只组合参数发送到你的服务器，如 选择哪个页面查看哪个时间段的数据、查看终端类型或者热图类型等等。并等请求完毕之后，让iframe去加载返回的url。
-
-在请求API之后，浏览器端使用`iframe`嵌入的方式去加载返回的`url`。
-
-建议操作步骤如下:
-
-1. 浏览器端选择好参数传递给服务器，在服务器端组合好token与参数，由你的服务器发送请求到https://reportv3.ptengine.jp/API/v1/heatMap/get
-
-2. ptengine做出响应之后，将结果返回到浏览器。
-
-3. 浏览器判断返回结果的成功与失败，并由你自己去决定怎么处理后续的提示。
-
-4. 如果返回结果`status===success`,那么就可以将`content.url`嵌入到`iframe.src`。在loading结束之后，你就会看到你想看的内容了。
-```
-    document.getElementById("myIframe").src = https://reportv3.ptengine.jp/API/v1/heatMap/533286fa53b98a46f8d0d02364d45aac/heatMapAPI.html
-```
+* URL验证：需要验证token，验证URL的格式，统一提示（查询的URL有误）
+* token验证：不存在或者错误。
+* 时间验证：1验证时间跨度不能超过30天（跨度太长）2开始时间不能晚于当天、结束时间（查询时间有误）3如果查询时间不在账号的权限内（超过可查范围）4时间戳长度错误（查询时间有误）5不能选择当天的时间
+* 设备类型：请求值为空，默认为PC。1、验证是否是字段内设备（查询的设备有误）
+* 热图类型：请求值为空，默认为点击热图。验证是否是字段内热图（查询的热图类型有误）
