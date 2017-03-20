@@ -2,21 +2,7 @@
 
 ---
 
-## https://reportv3.ptengine.jp/API/v1/heatMap/get
-
-* #### 返回值
-
-返回一个JSON:
-
-```
-    {
-        "status":"success",
-        "content"{
-            "url":"/API/v1/heatMap/533286fa53b98a46f8d0d02364d45aac/heatMapAPI.html"
-        }
-    }
-```
-当`status=fail`表示当前请求失败。具体原因可查看`contetn`或者`errorCode`.
+## API: https://reportv3.ptengine.jp/API/v1/heatMap/get
 
 * #### method: GET
 
@@ -83,6 +69,26 @@ token不对也会被拒绝请求。
 ```
     heatMapType = click || attention || analysis
 ```
+
+* #### 返回值
+
+无论请求结果对错，都会返回一个JSON:
+
+```
+    //成功
+    {
+        "status": "success",
+        "content": {
+            "url":"/API/v1/heatMap/533286fa53b98a46f8d0d02364d45aac/heatMapAPI.html"
+        }
+    }
+    //失败
+    {
+        "status": "fail",
+        "content": "start time can't be empty!"
+    }
+```
+当`status=fail`表示当前请求失败。具体原因可查看`content`.
 
 ## 如何使用这个API
 
