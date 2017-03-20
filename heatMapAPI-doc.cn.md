@@ -132,11 +132,11 @@ token不对也会被拒绝请求。
 
 热图底图的宽度受选择的终端影响.下表说明了在不同终端设备下热图底图会呈现不同的宽度。
 
-|----|----|
-|:设备:|:宽度:|
-|:PC:|:1024px:|
-|:Smartphone:|:480px:|
-|:Tablet:|:1024px:|
+|设备|宽度|
+|:--:|:--:|
+|PC|1024px|
+|Smartphone|480px|
+|Tablet|1024px|
 
 如果不想使用这种宽度，你可以给iframe设置name属性`name=pt_heatmap_api`,然后手动去设置`iframe的宽度`,这样ptengine热图会根据外层的iframe自适应宽度。
 
