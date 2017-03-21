@@ -121,8 +121,11 @@
         });
 
         $('#submit').on('click', function(){
+            var $this = $(this);
+            $this.attr('disabled', 'disabled').val('loading...');
             //submit
             $.get('/getHeatMap?' + $('form').serialize()).then(function (data) {
+                 $this.val('view heatmap').removeAttr('disabled');
                 if (typeof data === 'string') {
                     try {
                         data = JSON.parse(data);
