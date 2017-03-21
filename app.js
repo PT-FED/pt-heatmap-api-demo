@@ -1,6 +1,6 @@
 const Koa = require('koa');
 const sendFile = require('koa-send');
-const http = require('http');
+const https = require('https');
 const node_url = require('url');
 
 const app = new Koa();
@@ -28,16 +28,16 @@ app.use((ctx, next) => {
 app.use((ctx, next) => {
     if (ctx.path === '/getHeatMap') {
         const headers = {
-            'PT-heatmap-Authorization': 'd35cddd616194b7f7a40cf0e3f788e62'
+            'PT-heatmap-Authorization': 'f1b98c4b44e2104d8840b9c8696fc5b2'
         },
         url = encodeURIComponent(ctx.query.url),  //request heatmap url.
-        startTime = 1487088000,
-        endTime = 1489593600,
-        terminal = 'Smartphone',
-        heatMapType = 'click';
+        startTime = new Date(ctx.query.startTime).getTime() / 1000,
+        endTime = new Date(ctx.query.endTime).getTime() / 1000,
+        terminal = ctx.query.terminal,
+        heatMapType = ctx.query.heatMapType;
         
-        const heatMapAPIUrl = 'http://localhost:3200/API/v1/heatMap/get?url=' + url + "&startTime=" + startTime + "&endTime=" + endTime + "&terminal=" + terminal + "&heatMapType=" + heatMapType;
-        
+        const heatMapAPIUrl = 'https://reportv3.ptengine.jp/API/v1/heatMap/get?url=' + url + "&startTime=" + startTime + "&endTime=" + endTime + "&terminal=" + terminal + "&heatMapType=" + heatMapType;
+
         return get(heatMapAPIUrl, headers).then(data =>{
             //response
             ctx.body = data;
@@ -66,7 +66,7 @@ function get(url, headers) {
         const options = node_url.parse(url);
         options.method = "GET";
         options.headers = headers;
-        const req = http.request(options, res => {
+        const req = https.request(options, res => {
             res.setEncoding('utf8');
             console.log(res.statusCode); // if statusCode is 403. because heatmap api token error.
             resolve(res);

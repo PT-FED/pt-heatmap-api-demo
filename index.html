@@ -1,47 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>heatmap api demo</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <style>
-            #myIframe{
-                width: 100%;
-                height: 1000px;
-                border: none;
-            }
-        </style>
-    </head>
-    <body>
-        <h3>Hello heatmap demo</h3>
-        <ul>
-            <li data-url="http://datatest11.ptmind.com/zhr/events.html">
-                http://datatest11.ptmind.com/zhr/events.html      
-            </li>
-            <li data-url="http://datatest11.ptmind.com/zhr/about.html">
-                http://datatest11.ptmind.com/zhr/about.html
-            </li>
-        </ul>
+
+<head>
+    <title>heatmap api demo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+    <script type="text/javascript" src="http://foxrunsoftware.github.io/DatePicker/assets/js/datepicker/js/datepicker.js"></script>
+    <link rel="stylesheet" media="screen" type="text/css" href="http://foxrunsoftware.github.io/DatePicker/assets/js/datepicker/css/base.css"
+    />
+    <link rel="stylesheet" media="screen" type="text/css" href="http://foxrunsoftware.github.io/DatePicker/assets/js/datepicker/css/clean.css"
+    />
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <style>
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main-container form{
+            width: 580px;
+        }
+
+        .title{
+            margin-bottom: 40px;
+        }
+        
+        #myIframe {
+            min-width: 100%;
+            height: 1000px;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        <h3 class="title">Hello heatmap api <small>demo</small></h3>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="startTime">start time: </label>
+                <div class="col-sm-8">
+                    <input id="startTime" class="form-control" name="startTime" value="2017/2/19 00:00:00" />
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="endTime">end time: </label>
+                <div class="col-sm-8">
+                    <input id="endTime" class="form-control" name="endTime" value="2017/3/20 23:59:59" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="terminal">terminal: </label>
+                <div class="col-sm-8">
+                    <select id="terminal" class="form-control" name="terminal" >
+                        <option value="PC">PC</option>
+                        <option value="Smartphone">Smartphone</option>
+                        <option value="Tablet">Tablet</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="heatMapType">heatmap type: </label>
+                <div class="col-sm-8">
+                    <select id="heatMapType" class="form-control" name="heatMapType">
+                        <option value="click">click</option>
+                        <option value="attention">attention</option>
+                        <option value="analysis">analysis</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="url">url: </label>
+                <div class="col-sm-8">
+                    <select id="url" class="form-control" name="url">
+                        <option value="http://datatest11.ptmind.com/spdn_6_skyblue1/index.html">http://datatest11.ptmind.com/spdn_6_skyblue1/index.html</option>
+                        <option value="http://datatest11.ptmind.com/spdn_6_skyblue/elements.html">http://datatest11.ptmind.com/spdn_6_skyblue/elements.html</option>
+                        <option value="http://datatest11.ptmind.com/spdn_6_skyblue/single.html">http://datatest11.ptmind.com/spdn_6_skyblue/single.html</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button id="submit" type="button" class="btn btn-primary">view heatmap</button>
+                </div>
+            </div>
+        </form>
+        
         <iframe id="myIframe" src=""></iframe>
-        <script>
-            $('ul li').on('click', function(){
-                console.log(this);
-                $.get('/getHeatMap?url=' + $(this).attr("data-url")).then(function(data){
-                    if(typeof data === 'string'){
-                        try{
-                            data = JSON.parse(data);
-                        }catch(e){
-                            alert('load heatmap api fail.');
-                        }
-                    }
-                    if(data.status === 'success'){
-                        $('#myIframe').attr('src', 'http://localhost:3200' + data.content.url);
-                    }else{
+    </div>
+
+    <script>
+        //select start time
+        $('#startTime').DatePicker({
+            mode: 'single',
+            position: 'right',
+            data: [new Date() - 1000 * 60 * 24 * 7],
+            onChange: function (data, el) {
+                $(el).val(data.getFullYear() + "/" + (data.getMonth() + 1) + "/" + data.getDate() + ' 00:00:00');
+                $(el).DatePickerHide();
+            }
+        });
+
+        //select end time
+        $('#endTime').DatePicker({
+            mode: 'single',
+            position: 'right',
+            data: [new Date() - 1000 * 60 * 24],
+            onChange: function (data, el) {
+                $(el).val(data.getFullYear() + "/" + (data.getMonth() + 1) + "/" + data.getDate() + ' 23:59:59');
+                $(el).DatePickerHide();
+            }
+        });
+
+        $('#submit').on('click', function(){
+            //submit
+            $.get('/getHeatMap?' + $('form').serialize()).then(function (data) {
+                if (typeof data === 'string') {
+                    try {
+                        data = JSON.parse(data);
+                    } catch (e) {
                         alert('load heatmap api fail.');
                     }
-                })
-            });
-        </script>
-    </body>
+                }
+                if (data.status === 'success') {
+                    $('#myIframe').attr('src', 'http://reportv3.ptengine.jp' + data.content.url);
+                } else {
+                    alert('load heatmap api fail.');
+                }
+            })
+        });
+    </script>
+</body>
+
 </html>
