@@ -43,14 +43,14 @@
             <div class="form-group">
                 <label class="col-sm-4 control-label" for="startTime">start time: </label>
                 <div class="col-sm-8">
-                    <input id="startTime" class="form-control" name="startTime" value="2017/2/19 00:00:00" />
+                    <input id="startTime" class="form-control" name="startTime" />
                 </div>
             </div>
             
             <div class="form-group">
                 <label class="col-sm-4 control-label" for="endTime">end time: </label>
                 <div class="col-sm-8">
-                    <input id="endTime" class="form-control" name="endTime" value="2017/3/20 23:59:59" />
+                    <input id="endTime" class="form-control" name="endTime" />
                 </div>
             </div>
 
@@ -80,9 +80,9 @@
                 <label class="col-sm-4 control-label" for="url">url: </label>
                 <div class="col-sm-8">
                     <select id="url" class="form-control" name="url">
-                        <option value="http://datatest11.ptmind.com/spdn_6_skyblue1/index.html">http://datatest11.ptmind.com/spdn_6_skyblue1/index.html</option>
-                        <option value="http://datatest11.ptmind.com/spdn_6_skyblue/elements.html">http://datatest11.ptmind.com/spdn_6_skyblue/elements.html</option>
-                        <option value="http://datatest11.ptmind.com/spdn_6_skyblue/single.html">http://datatest11.ptmind.com/spdn_6_skyblue/single.html</option>
+                        <option value="https://www.ptengine.jp">ヒートマップ付きアクセス解析ツール | Ptengine</option>
+                        <option value="https://www.ptengine.jp/blog/index.php/free_cloud_service">【2015最新版】徹底比較！無料から使用できるクラウドストレージサービス30選 | Ptengine Blog</option>
+                        <option value="https://www.ptengine.jp/plan">料金プラン | Ptengine</option>
                     </select>
                 </div>
             </div>
@@ -130,13 +130,13 @@
                     try {
                         data = JSON.parse(data);
                     } catch (e) {
-                        alert('load heatmap api fail.');
+                        alert('load heatmap api fail. message: ' + data);
                     }
                 }
                 if (data.status === 'success') {
                     $('#myIframe').attr('src', 'http://reportv3.ptengine.jp' + data.content.url);
                 } else {
-                    alert('load heatmap api fail.');
+                    alert('load heatmap api fail. message: ' + data.content);
                 }
             })
         });

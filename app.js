@@ -28,7 +28,7 @@ app.use((ctx, next) => {
 app.use((ctx, next) => {
     if (ctx.path === '/getHeatMap') {
         const headers = {
-            'PT-heatmap-Authorization': 'f1b98c4b44e2104d8840b9c8696fc5b2'
+            'PT-heatmap-Authorization': '823d75349ab11a9a65b19630278238ec'
         },
         url = encodeURIComponent(ctx.query.url),  //request heatmap url.
         startTime = new Date(ctx.query.startTime).getTime() / 1000,
@@ -37,7 +37,7 @@ app.use((ctx, next) => {
         heatMapType = ctx.query.heatMapType;
         
         const heatMapAPIUrl = 'https://reportv3.ptengine.jp/API/v1/heatMap/get?url=' + url + "&startTime=" + startTime + "&endTime=" + endTime + "&terminal=" + terminal + "&heatMapType=" + heatMapType;
-
+console.log(heatMapAPIUrl);
         return get(heatMapAPIUrl, headers).then(data =>{
             //response
             ctx.body = data;
