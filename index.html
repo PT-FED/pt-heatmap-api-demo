@@ -98,6 +98,10 @@
     </div>
 
     <script>
+        var today = new Date();
+        today = today.getFullYear() + '/' + (today.getMonth() + 1) + '/' + today.getDate();
+        $("#startTime").val(today + ' 00:00:00');
+        $("#endTime").val(today + ' 23:59:59');
         //select start time
         $('#startTime').DatePicker({
             mode: 'single',
