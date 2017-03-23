@@ -100,15 +100,14 @@
     <script>
         var today = new Date();
         today = today.getFullYear() + '/' + (today.getMonth() + 1) + '/' + today.getDate();
-        $("#startTime").val(today + ' 00:00:00');
-        $("#endTime").val(today + ' 23:59:59');
+        $("#startTime").val(today);
+        $("#endTime").val(today);
         //select start time
         $('#startTime').DatePicker({
             mode: 'single',
             position: 'right',
-            data: [new Date() - 1000 * 60 * 24 * 7],
             onChange: function (data, el) {
-                $(el).val(data.getFullYear() + "/" + (data.getMonth() + 1) + "/" + data.getDate() + ' 00:00:00');
+                $(el).val(data.getFullYear() + "/" + (data.getMonth() + 1) + "/" + data.getDate());
                 $(el).DatePickerHide();
             }
         });
@@ -117,9 +116,8 @@
         $('#endTime').DatePicker({
             mode: 'single',
             position: 'right',
-            data: [new Date() - 1000 * 60 * 24],
             onChange: function (data, el) {
-                $(el).val(data.getFullYear() + "/" + (data.getMonth() + 1) + "/" + data.getDate() + ' 23:59:59');
+                $(el).val(data.getFullYear() + "/" + (data.getMonth() + 1) + "/" + data.getDate());
                 $(el).DatePickerHide();
             }
         });
@@ -134,10 +132,11 @@
                     try {
                         data = JSON.parse(data);
                     } catch (e) {
-                        alert('load heatmap api fail. message: ' + data);
+                       return alert('load heatmap api fail. message: ' + data);
                     }
                 }
                 if (data.status === 'success') {
+                    //load ptengine heatmap use iframe.
                     $('#myIframe').attr('src', 'http://reportv3.ptengine.jp' + data.content.url);
                 } else {
                     alert('load heatmap api fail. message: ' + data.content);

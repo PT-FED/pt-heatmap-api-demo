@@ -31,10 +31,10 @@ app.use((ctx, next) => {
             'PT-heatmap-Authorization': '823d75349ab11a9a65b19630278238ec'
         },
         url = encodeURIComponent(ctx.query.url),  //request heatmap url.
-        startTime = new Date(ctx.query.startTime).getTime() / 1000,
-        endTime = new Date(ctx.query.endTime).getTime() / 1000,
-        terminal = ctx.query.terminal,
-        heatMapType = ctx.query.heatMapType;
+        startTime = ctx.query.startTime;
+        endTime = ctx.query.endTime;
+        terminal = ctx.query.terminal || "",
+        heatMapType = ctx.query.heatMapType || "";
         
         const heatMapAPIUrl = 'https://reportv3.ptengine.jp/API/v1/heatMap/get?url=' + url + "&startTime=" + startTime + "&endTime=" + endTime + "&terminal=" + terminal + "&heatMapType=" + heatMapType;
 console.log(heatMapAPIUrl);
