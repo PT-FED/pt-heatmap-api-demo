@@ -34,10 +34,16 @@ app.use((ctx, next) => {
         startTime = ctx.query.startTime;
         endTime = ctx.query.endTime;
         terminal = ctx.query.terminal || "",
+        screen = ctx.query.screen || "",
         heatMapType = ctx.query.heatMapType || "";
         
-        const heatMapAPIUrl = 'https://reportv3.ptengine.jp/API/v1/heatMap/get?url=' + url + "&startTime=" + startTime + "&endTime=" + endTime + "&terminal=" + terminal + "&heatMapType=" + heatMapType;
-console.log(heatMapAPIUrl);
+        const heatMapAPIUrl = 'https://reportv3.ptengine.jp/API/v1/heatMap/get?url=' + url 
+            + "&startTime=" + startTime 
+            + "&endTime=" + endTime 
+            + "&terminal=" + terminal 
+            + "&screen=" + screen 
+            + "&heatMapType=" + heatMapType;
+
         return get(heatMapAPIUrl, headers).then(data =>{
             //response
             ctx.body = data;

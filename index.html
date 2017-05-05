@@ -61,6 +61,18 @@
                         <option value="PC">PC</option>
                         <option value="Smartphone">Smartphone</option>
                         <option value="Tablet">Tablet</option>
+                        <option value="Other">Other</option>
+                        <option value="All">All</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group screen-form-group" style="display:none;">
+                <label class="col-sm-4 control-label" for="screen">screen orientation: </label>
+                <div class="col-sm-8">
+                    <select id="screen" class="form-control" name="screen" >
+                        <option value="V">vertical screen</option>
+                        <option value="H">horizontal screen</option>
                     </select>
                 </div>
             </div>
@@ -122,6 +134,18 @@
             }
         });
 
+        $('#terminal').on('change', function(){
+            console.log($(this).val())
+            switch($(this).val()){
+                case 'Smartphone':
+                case 'Tablet':
+                    $('.screen-form-group').show();
+                    break;
+                default:
+                    $('.screen-form-group').hide();
+            }
+        })
+
         $('#submit').on('click', function(){
             var $this = $(this);
             $this.attr('disabled', 'disabled').val('loading...');
@@ -138,6 +162,7 @@
                 if (data.status === 'success') {
                     //load ptengine heatmap use iframe.
                     $('#myIframe').attr('src', 'http://reportv3.ptengine.jp' + data.content.url);
+                    // $('#myIframe').attr('src', 'http://localhost:3000' + data.content.url);
                 } else {
                     alert('load heatmap api fail. message: ' + data.content);
                 }

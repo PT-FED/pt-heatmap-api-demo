@@ -75,11 +75,13 @@ token不对也会被拒绝请求。
 4. ##### terminal 可选参数
 
 默认值 `PC`
-选择展示底图的终端类型,只可以是三个值: 
+选择展示底图的终端类型,只可以是五个值: 
 
 * `PC`
 * `Smartphone`
 * `Tablet`
+* `Ohter`
+* `All`
 
 不区分大小写。如果传递错误的参数会拒绝请求。
 
@@ -89,7 +91,22 @@ token不对也会被拒绝请求。
     terminal = PC || Smartphone || Tablet
 ```
 
-5. ##### heatMapType 可选参数
+5. ##### screen 可选参数
+
+> 这个参数只有在 `terminal等于Smartphone或者Tablet`才有效。
+
+设定在手机或者平板下的横竖屏。只有这两个设备才会有效。
+
+当`terminal等于Smartphone或者Tablet`, 默认值 `V`
+
+只可以是两个值
+
+* `H` (horizontal, 竖屏)
+* `V` (vertical, 横屏)
+
+不区分大小写, 如果在`terminal等于Smartphone或者Tablet`时, 传递错误的参数会拒绝请求。
+
+6. ##### heatMapType 可选参数
 默认值 `click`
 选择热图类型,只可以三个值: 
 
