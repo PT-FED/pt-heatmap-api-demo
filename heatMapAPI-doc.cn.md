@@ -22,6 +22,9 @@
 3. 浏览器判断返回结果的成功与失败，并由你自己去决定怎么处理后续的提示。
 
 4. 如果返回结果`status===success`,那么就可以将`content.url`嵌入到`iframe.src`。在loading结束之后，你就会看到你想看的内容了。
+
+> 注意!!! iframe.src的网络协议。如果你确保你的站点所有的资源都是`https`, 则可以使用`https://reportv3.ptengine.jp`。 如果你的资源含有`http`的资源, 那请不要使用https协议。因为浏览器的安全机制, 导致在`https`协议下 `http`协议的资源无法被加载!
+
 ```
     document.getElementById("myIframe").src = 'https://reportv3.ptengine.jp' + content.url;
 ```
