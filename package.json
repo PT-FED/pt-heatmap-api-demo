@@ -4,7 +4,9 @@
   "description": "how to use heatmap api",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "pm2": "pm2 start  --name=\"pt-heatmap-api-demp\" npm -- start",
+    "stop": "pm2 delete pt-heatmap-api-demp"
   },
   "repository": {
     "type": "git",
